@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Allocation history{% endblock %}
+{% block page_heading %}Allocation history{% endblock %}
+{% block content %}
+<div class="section-intro"><div><h1>Allocation history</h1><p>Audit trail of bed allocation and discharge actions.</p></div><span class="count-chip">Latest {{ logs|length }} events</span></div>
+<div class="panel-card"><div class="table-responsive"><table class="table modern-table"><thead><tr><th>Date & time</th><th>Patient</th><th>Bed / ward</th><th>Action</th><th>Details</th><th>Performed by</th></tr></thead><tbody>{% for l in logs %}<tr><td>{{ l.created_at.strftime('%d %b %Y, %H:%M:%S') }}</td><td><strong>{{ l.patient_name }}</strong><small class="table-sub">{{ l.patient_code }}</small></td><td>{{ l.bed_code }}<small class="table-sub">{{ l.ward }}</small></td><td><span class="badge-soft {% if l.action == 'Allocated' %}badge-green{% else %}badge-blue{% endif %}">{{ l.action }}</span></td><td>{{ l.details or '—' }}</td><td>{{ l.actor }}</td></tr>{% else %}<tr><td colspan="6" class="empty-state">No allocation events recorded yet.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

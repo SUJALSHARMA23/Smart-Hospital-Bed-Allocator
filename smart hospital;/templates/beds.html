@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Bed inventory{% endblock %}
+{% block page_heading %}Bed inventory{% endblock %}
+{% block content %}
+<div class="section-intro"><div><h1>Bed inventory</h1><p>Manage beds, wards, bed types, and available facilities.</p></div><span class="count-chip">{{ beds|length }} beds configured</span></div>
+<div class="panel-card mb-4"><div class="panel-heading"><div><h3>Add a bed</h3><p>Facilities are comma-separated, e.g. Oxygen,Monitor</p></div></div><form method="post" class="row g-3 align-items-end">
+<div class="col-md-3"><label class="form-label">Bed code *</label><input name="bed_code" class="form-control" required placeholder="e.g. G-104"></div>
+<div class="col-md-3"><label class="form-label">Ward *</label><input name="ward" class="form-control" required placeholder="General / ICU"></div>
+<div class="col-md-2"><label class="form-label">Bed type *</label><select name="bed_type" class="form-select" required><option>General</option><option>ICU</option><option>Pediatric</option><option>Private</option></select></div>
+<div class="col-md-3"><label class="form-label">Facilities</label><input name="facilities" class="form-control" placeholder="Oxygen,Monitor"></div>
+<div class="col-md-1"><button class="btn btn-primary w-100">Add</button></div>
+</form></div>
+<div class="panel-card"><div class="panel-heading"><div><h3>All beds</h3><p>Occupied beds cannot be marked unavailable.</p></div></div><div class="table-responsive"><table class="table modern-table"><thead><tr><th>Bed code</th><th>Ward</th><th>Type</th><th>Facilities</th><th>Status</th><th>Action</th></tr></thead><tbody>{% for b in beds %}<tr><td><strong>{{ b.bed_code }}</strong></td><td>{{ b.ward }}</td><td>{{ b.bed_type }}</td><td>{{ b.facilities or '—' }}</td><td><span class="badge-soft {% if b.status == 'Available' %}badge-green{% elif b.status == 'Occupied' %}badge-orange{% else %}badge-gray{% endif %}">{{ b.status }}</span></td><td>{% if b.status != 'Occupied' %}<form method="post" action="{{ url_for('toggle_bed', bed_id=b.id) }}"><button class="btn btn-sm btn-light">{{ 'Mark unavailable' if b.status == 'Available' else 'Mark available' }}</button></form>{% else %}<span class="small-muted">In use</span>{% endif %}</td></tr>{% else %}<tr><td colspan="6" class="empty-state">No beds configured.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}
