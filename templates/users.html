@@ -1,0 +1,13 @@
+Test-Path .\app.py{% extends "base.html" %}
+{% block title %}Staff & users{% endblock %}
+{% block page_heading %}Staff & user access{% endblock %}
+{% block content %}
+<div class="section-intro"><div><h1>Staff & user access</h1><p>Create accounts and assign an application role.</p></div><span class="count-chip">{{ users|length }} accounts</span></div>
+<div class="panel-card mb-4"><div class="panel-heading"><div><h3>Create user</h3><p>Use a unique username and a password of at least 10 characters.</p></div></div><form method="post" class="row g-3 align-items-end">
+<div class="col-md-4"><label class="form-label">Username</label><input class="form-control" name="username" required minlength="3" maxlength="80"></div>
+<div class="col-md-4"><label class="form-label">Temporary password</label><input class="form-control" type="password" name="password" required minlength="10"></div>
+<div class="col-md-2"><label class="form-label">Role</label><select class="form-select" name="role"><option value="staff">Staff</option><option value="admin">Admin</option></select></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">Create user</button></div>
+</form></div>
+<div class="panel-card"><div class="panel-heading"><div><h3>Registered users</h3><p>Passwords are never displayed.</p></div></div><div class="table-responsive"><table class="table modern-table"><thead><tr><th>Username</th><th>Role</th><th>Created</th></tr></thead><tbody>{% for u in users %}<tr><td><strong>{{ u.username }}</strong></td><td><span class="badge-soft {% if u.role == 'admin' %}badge-purple{% else %}badge-blue{% endif %}">{{ u.role|title }}</span></td><td>{{ u.created_at.strftime('%d %b %Y') }}</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

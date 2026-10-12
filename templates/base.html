@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}CareBed{% endblock %} | Smart Hospital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --background: #f5f7fb;
+            --surface: #ffffff;
+            --text: #172033;
+            --muted: #778198;
+            --border: #e8edf5;
+            --sidebar-width: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* LEFT SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 15px;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 8px 28px;
+        }
+
+        .brand-icon {
+            height: 44px;
+            width: 44px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            color: white;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            font-size: 21px;
+        }
+
+        .brand-name {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-sub {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .nav-label {
+            color: #9aa4b5;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            padding: 12px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 12px;
+            margin: 3px 0;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: #68748a;
+            font: inherit;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .sidebar-note {
+            padding: 14px;
+            background: #f5f8ff;
+            border: 1px solid #e6edff;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .sidebar-note strong {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .sidebar-note p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .logout-form {
+            margin: 0;
+        }
+
+        .logout-button:hover {
+            background: #fff1f2;
+            color: #be123c;
+        }
+
+        /* MAIN AREA: USE ALL SPACE AFTER SIDEBAR */
+        .main {
+            width: calc(100% - var(--sidebar-width));
+            min-width: 0;
+            min-height: 100vh;
+            margin-left: var(--sidebar-width);
+        }
+
+        .topbar {
+            min-height: 78px;
+            padding: 16px 30px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-caption {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .topbar h1 {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border-radius: 30px;
+            padding: 8px 12px;
+            background: #ecfdf5;
+            color: #087f51;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #16a36a;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 14px;
+            border-left: 1px solid var(--border);
+        }
+
+        .avatar {
+            width: 39px;
+            height: 39px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            color: #1d4ed8;
+            background: #dbeafe;
+            font-weight: 800;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .profile-role {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: 0;
+            border-radius: 9px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* PAGE CONTENT: FULL WIDTH, NO SMALL FIXED CONTAINER */
+        .page-content {
+            display: block;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 28px 30px 38px;
+        }
+
+        .page-intro {
+            margin-bottom: 24px;
+        }
+
+        .page-intro h2 {
+            margin: 0 0 7px;
+            font-size: 23px;
+        }
+
+        .page-intro p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .card {
+            width: 100%;
+            min-width: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 4px 18px #1c315008;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 750;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .small {
+            font-size: 12px;
+        }
+
+        .flash-list {
+            margin-bottom: 18px;
+        }
+
+        .flash {
+            padding: 13px 16px;
+            border-radius: 10px;
+            margin-bottom: 9px;
+            border: 1px solid #bbf7d0;
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .flash.error,
+        .flash.danger {
+            border-color: #fecaca;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            border: 1px solid #dce3ee;
+            border-radius: 9px;
+            padding: 11px 12px;
+            background: white;
+            color: var(--text);
+            font: inherit;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            color: #8490a5;
+            background: #f8faff;
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 13px 15px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #edf0f6;
+        }
+
+        .footer {
+            padding: 18px 30px 24px;
+            color: #98a1b2;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        @media (max-width: 1000px) {
+            :root {
+                --sidebar-width: 215px;
+            }
+
+            .topbar {
+                padding: 15px 20px;
+            }
+
+            .page-content {
+                padding: 22px 20px 30px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 13px;
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .brand {
+                padding: 0 5px 12px;
+            }
+
+            .sidebar nav {
+                flex-direction: row;
+                gap: 5px;
+                overflow-x: auto;
+            }
+
+            .nav-label,
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .nav-link {
+                white-space: nowrap;
+                width: auto;
+                padding: 10px;
+                font-size: 11px;
+            }
+
+            .main {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .topbar {
+                position: relative;
+                padding: 16px;
+            }
+
+            .topbar h1 {
+                font-size: 18px;
+            }
+
+            .topbar-caption,
+            .status-pill {
+                display: none;
+            }
+
+            .profile {
+                padding-left: 8px;
+            }
+
+            .profile-name,
+            .profile-role {
+                display: none;
+            }
+
+            .page-content {
+                padding: 18px 14px 25px;
+            }
+
+            .footer {
+                padding: 16px;
+            }
+        }
+    </style>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    {% set ep = request.endpoint or '' %}
+
+    <aside class="sidebar">
+        <a class="brand"
+           href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('login') }}">
+            <div class="brand-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div>
+                <div class="brand-name">CareBed</div>
+                <div class="brand-sub">SMART HOSPITAL SYSTEM</div>
+            </div>
+        </a>
+
+        {% if current_user.is_authenticated %}
+        <div class="nav-label">MAIN MENU</div>
+
+        <nav>
+            <a class="nav-link {{ 'active' if ep == 'dashboard' else '' }}"
+               href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-chart-pie"></i> Dashboard
+            </a>
+
+            <a class="nav-link {{ 'active' if ep in ['patients', 'edit_patient'] else '' }}"
+               href="{{ url_for('patients') }}">
+                <i class="fa-solid fa-hospital-user"></i> Patients
+            </a>
+
+            <a class="nav-link {{ 'active' if ep in ['beds', 'toggle_bed'] else '' }}"
+               href="{{ url_for('beds') }}">
+                <i class="fa-solid fa-bed-pulse"></i> Bed Management
+            </a>
+
+            <a class="nav-link {{ 'active' if ep in ['admissions', 'discharge'] else '' }}"
+               href="{{ url_for('admissions') }}">
+                <i class="fa-solid fa-clipboard-list"></i> Admissions
+            </a>
+
+            <a class="nav-link {{ 'active' if ep == 'history' else '' }}"
+               href="{{ url_for('history') }}">
+                <i class="fa-solid fa-clock-rotate-left"></i> Activity History
+            </a>
+
+            {% if current_user.role == 'admin' %}
+            <a class="nav-link {{ 'active' if ep in ['reports', 'export_report'] else '' }}"
+               href="{{ url_for('reports') }}">
+                <i class="fa-solid fa-chart-column"></i> Reports
+            </a>
+
+            <div class="nav-label">ADMINISTRATION</div>
+
+            <a class="nav-link {{ 'active' if ep == 'users' else '' }}"
+               href="{{ url_for('users') }}">
+                <i class="fa-solid fa-users-gear"></i> User Management
+            </a>
+            {% endif %}
+        </nav>
+        {% endif %}
+
+        <div class="sidebar-bottom">
+            {% if current_user.is_authenticated %}
+            <div class="sidebar-note">
+                <strong><i class="fa-solid fa-shield-heart"></i> Care made smarter</strong>
+                <p>Manage patient records, bed availability and hospital activity from one place.</p>
+            </div>
+
+            <form class="logout-form" method="POST" action="{{ url_for('logout') }}">
+                <button type="submit" class="nav-link logout-button">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <div class="topbar-caption">CareBed / Hospital Operations</div>
+                <h1>{% block page_heading %}Hospital Overview{% endblock %}</h1>
+            </div>
+
+            <div class="topbar-right">
+                {% if current_user.is_authenticated %}
+                <span class="status-pill">
+                    <span class="status-dot"></span> System Active
+                </span>
+
+                <div class="profile">
+                    <div class="avatar">
+                        {{ (current_user.username or 'U')[0]|upper }}
+                    </div>
+                    <div>
+                        <div class="profile-name">{{ current_user.username }}</div>
+                        <div class="profile-role">
+                            {{ current_user.role|default('Staff', true)|title }}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <a class="btn btn-primary" href="{{ url_for('login') }}">
+                    <i class="fa-solid fa-right-to-bracket"></i> Sign In
+                </a>
+                {% endif %}
+            </div>
+        </header>
+
+        <section class="page-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="flash-list">
+                    {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </section>
+
+        <footer class="footer">
+            &copy; 2026 CareBed Smart Hospital · Better coordination, better care.
+        </footer>
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+SMART HOSPITAL BED ALLOCATOR - QUICK START
+
+1. Install Python 3.11 or newer from https://www.python.org/downloads/.
+2. Extract this ZIP into a normal folder (do not run from inside the ZIP).
+3. Double-click setup_and_run.bat.
+4. Wait for dependencies to install. Internet is required for the first setup.
+5. Open http://127.0.0.1:5000 in your browser.
+
+DEMO LOGINS
+Admin: username admin | password Admin@12345
+Staff: username staff | password Staff@12345
+
+If Windows asks whether to allow Python, choose the option appropriate for your own computer.
+Keep the terminal window open while using the app. Press Ctrl+C to stop it.
+
+IMPORTANT
+This is an academic/demo prototype only. Do not enter real patient information or use it to make clinical decisions. Change demo credentials and add security controls before any real deployment.

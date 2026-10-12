@@ -1,0 +1,477 @@
+
+/* ========================================
+   CAREBED - HOSPITAL MANAGEMENT SYSTEM
+   Main Stylesheet
+======================================== */
+
+/* ---------- Global Styles ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --success: #059669;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --purple: #7c3aed;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --background: #f4f7fb;
+    --white: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ---------- Top Navigation ---------- */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 18px 28px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.topbar h1 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 25px;
+}
+
+.topbar p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.topbar a {
+    margin-left: 12px;
+    font-weight: 600;
+}
+
+/* ---------- Main Container ---------- */
+
+.container {
+    width: min(1500px, 100%);
+    margin: 0 auto;
+    padding: 28px;
+}
+
+.container h2 {
+    color: var(--text);
+}
+
+.notice {
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    border-radius: 9px;
+}
+
+/* ---------- Dashboard Statistics ---------- */
+
+.stats,
+.cb-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.stat,
+.cb-card {
+    min-width: 0;
+    padding: 22px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.stat span,
+.cb-label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stat h2 {
+    margin: 10px 0 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.cb-number {
+    margin: 10px 0;
+    color: var(--text);
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.blue {
+    color: var(--primary) !important;
+}
+
+.green {
+    color: var(--success) !important;
+}
+
+.orange {
+    color: var(--warning) !important;
+}
+
+.purple {
+    color: var(--purple) !important;
+}
+
+/* ---------- Dashboard Panels ---------- */
+
+.cb-panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.cb-panel-title {
+    margin: 0 0 7px;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.cb-panel-subtitle {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.cb-muted {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* ---------- Occupancy Progress Graphs ---------- */
+
+.cb-progress {
+    display: block;
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    background: #e2e8f0;
+    border-radius: 30px;
+}
+
+.cb-progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--primary);
+    border-radius: 30px;
+    transition: width 0.6s ease-in-out;
+}
+
+.cb-progress-fill.fill-green {
+    background: #10b981;
+}
+
+.cb-legend {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+    font-size: 14px;
+}
+
+.cb-ward-row {
+    margin-bottom: 22px;
+}
+
+.cb-ward-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.cb-ward-footer {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ---------- Quick Action Links ---------- */
+
+.cb-actions {
+    display: grid;
+    gap: 12px;
+}
+
+.cb-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    color: var(--text);
+    text-decoration: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.cb-action:hover {
+    background: #f8fafc;
+    border-color: #93c5fd;
+}
+
+.cb-action strong,
+.cb-action small {
+    display: block;
+}
+
+.cb-action small {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ---------- Panels and Tables ---------- */
+
+.panel {
+    margin-bottom: 24px;
+    padding: 22px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.table-wrap,
+.cb-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+}
+
+th,
+td {
+    padding: 13px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+th {
+    color: #475569;
+    background: #f8fafc;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+.cb-empty {
+    padding: 24px;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* ---------- Forms ---------- */
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+input,
+select,
+textarea {
+    min-width: 0;
+    padding: 11px 13px;
+    color: var(--text);
+    background: var(--white);
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-row input,
+.form-row select {
+    flex: 1 1 160px;
+}
+
+/* ---------- Buttons ---------- */
+
+button {
+    padding: 11px 17px;
+    color: var(--white);
+    background: var(--primary);
+    border: 0;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+button.danger {
+    background: var(--danger);
+}
+
+button.danger:hover {
+    background: #b91c1c;
+}
+
+/* ---------- Bed Inventory ---------- */
+
+.bed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+}
+
+.bed {
+    padding: 17px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.bed strong {
+    font-size: 18px;
+}
+
+.bed p {
+    margin: 7px 0;
+    color: var(--muted);
+}
+
+.available {
+    color: #047857;
+    font-weight: 700;
+}
+
+.occupied {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+.cb-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #166534;
+    background: #dcfce7;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ---------- Responsive Layout ---------- */
+
+@media (max-width: 1000px) {
+    .stats,
+    .cb-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cb-panels {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .container {
+        padding: 16px;
+    }
+
+    .topbar {
+        padding: 16px;
+    }
+
+    .stats,
+    .cb-grid,
+    .cb-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .stat,
+    .cb-card,
+    .panel {
+        padding: 16px;
+    }
+
+    .stat h2,
+    .cb-number {
+        font-size: 27px;
+    }
+
+    .form-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row button {
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+}
