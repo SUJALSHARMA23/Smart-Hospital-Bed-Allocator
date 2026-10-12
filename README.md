@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Smart Hospital Bed Allocator
 
 An advanced academic/demo hospital bed management application built with Flask, SQLite, Flask-Login, Bootstrap, and Chart.js.
@@ -38,3 +39,7 @@ Change the demo password before any real deployment. The app uses a development 
 
 ## Notes
 This is an educational prototype, not a certified clinical system. Do not enter real patient data. Before any real-world use, add production-grade secrets, HTTPS, backups, audit review, privacy controls, security testing, and clinical validation.
+=======
+# Smart-Hospital-Bed-Allocator
+A smart hospital bed allocation system for efficient patient management, bed availability tracking, and optimized hospital resource utilization.
+>>>>>>> 67be757b77a375173ebb6b2c002d85237cec1d77

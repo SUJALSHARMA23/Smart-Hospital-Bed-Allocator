@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block page_heading %}Reports & analytics{% endblock %}
+{% block content %}
+<div class="section-intro"><div><h1>Reports & analytics</h1><p>Current bed utilization summary and downloadable admission records.</p></div><a class="btn btn-primary" href="{{ url_for('export_report') }}">↓ Export admissions CSV</a></div>
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-top"><span>Total beds</span><span class="metric-icon blue">▤</span></div><div class="metric-number">{{ total }}</div><div class="metric-foot">Configured inventory</div></div>
+<div class="metric-card"><div class="metric-top"><span>Available</span><span class="metric-icon green">✓</span></div><div class="metric-number">{{ available }}</div><div class="metric-foot">Ready for allocation</div></div>
+<div class="metric-card"><div class="metric-top"><span>Occupied</span><span class="metric-icon orange">♙</span></div><div class="metric-number">{{ occupied }}</div><div class="metric-foot">Currently in use</div></div>
+<div class="metric-card"><div class="metric-top"><span>Occupancy rate</span><span class="metric-icon purple">%</span></div><div class="metric-number">{{ occupancy }}%</div><div class="metric-foot">{{ unavailable }} unavailable beds</div></div>
+</div>
+<div class="panel-card mt-4"><div class="panel-heading"><div><h3>Report contents</h3><p>The CSV includes one row per admission record.</p></div></div><ul class="report-list"><li>Patient code and display name</li><li>Bed code and ward</li><li>Admission reason and status</li><li>Admission and discharge timestamps</li><li>Staff usernames associated with admission and discharge</li></ul><div class="alert alert-info mt-3 mb-0">Exported data can contain sensitive information in a real deployment. This demo should use fictional records only.</div></div>
+{% endblock %}

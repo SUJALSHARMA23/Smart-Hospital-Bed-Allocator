@@ -1,0 +1,568 @@
+
+{% extends "base.html" %}
+
+{% block title %}CareBed Dashboard{% endblock %}
+{% block page_heading %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CareBed Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CareBed Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<style>
+.cb-dashboard {
+    color: #1e293b;
+}
+
+.cb-dashboard * {
+    box-sizing: border-box;
+}
+
+.cb-dashboard .cb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.cb-dashboard .cb-header h2 {
+    margin: 0 0 6px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.cb-dashboard .cb-muted {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.cb-dashboard .cb-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.cb-dashboard .cb-card {
+    min-width: 0;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+}
+
+.cb-dashboard .cb-label {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cb-dashboard .cb-number {
+    margin: 10px 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.cb-dashboard .blue {
+    color: #2563eb;
+}
+
+.cb-dashboard .green {
+    color: #059669;
+}
+
+.cb-dashboard .orange {
+    color: #d97706;
+}
+
+.cb-dashboard .purple {
+    color: #7c3aed;
+}
+
+.cb-dashboard .cb-panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.cb-dashboard .cb-panel-title {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.cb-dashboard .cb-panel-subtitle {
+    margin: 0 0 20px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.cb-dashboard .cb-progress {
+    display: block;
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #e2e8f0;
+}
+
+.cb-dashboard .cb-progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: 20px;
+    background: #2563eb;
+    transition: width 0.5s ease;
+}
+
+.cb-dashboard .fill-green {
+    background: #10b981;
+}
+
+.cb-dashboard .cb-legend {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 13px 0;
+    font-size: 14px;
+}
+
+.cb-dashboard .cb-actions {
+    display: grid;
+    gap: 12px;
+}
+
+.cb-dashboard .cb-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px;
+    color: #1e293b;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.cb-dashboard .cb-action:hover {
+    background: #f8fafc;
+    border-color: #93c5fd;
+}
+
+.cb-dashboard .cb-action strong,
+.cb-dashboard .cb-action small {
+    display: block;
+}
+
+.cb-dashboard .cb-action small {
+    margin-top: 4px;
+    color: #64748b;
+}
+
+.cb-dashboard .cb-table-wrap {
+    overflow-x: auto;
+}
+
+.cb-dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cb-dashboard th,
+.cb-dashboard td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 13px;
+}
+
+.cb-dashboard th {
+    color: #475569;
+    background: #f8fafc;
+    white-space: nowrap;
+}
+
+.cb-dashboard .cb-empty {
+    padding: 24px;
+    color: #64748b;
+    text-align: center;
+}
+
+.cb-dashboard .cb-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.cb-dashboard .cb-ward-row {
+    margin-bottom: 22px;
+}
+
+.cb-dashboard .cb-ward-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.cb-dashboard .cb-ward-footer {
+    margin-top: 7px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+@media (max-width: 950px) {
+    .cb-dashboard .cb-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .cb-dashboard .cb-grid,
+    .cb-dashboard .cb-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .cb-dashboard .cb-card {
+        padding: 16px;
+    }
+
+    .cb-dashboard .cb-number {
+        font-size: 27px;
+    }
+}
+</style>
+
+<div class="cb-dashboard">
+
+    <!-- Dashboard heading -->
+    <div class="cb-header">
+        <div>
+            <h2>Hospital Overview</h2>
+            <div class="cb-muted">
+                Monitor bed availability and patient admissions.
+            </div>
+        </div>
+
+        <span class="cb-badge">System Dashboard</span>
+    </div>
+
+    <!-- Statistics cards -->
+    <div class="cb-grid">
+
+        <div class="cb-card">
+            <div class="cb-label">Total Beds</div>
+            <div class="cb-number blue">{{ total_beds }}</div>
+            <div class="cb-muted">Registered hospital beds</div>
+        </div>
+
+        <div class="cb-card">
+            <div class="cb-label">Available Beds</div>
+            <div class="cb-number green">{{ available_beds }}</div>
+            <div class="cb-muted">Ready for allocation</div>
+        </div>
+
+        <div class="cb-card">
+            <div class="cb-label">Occupied Beds</div>
+            <div class="cb-number orange">{{ occupied_beds }}</div>
+            <div class="cb-muted">Currently occupied</div>
+        </div>
+
+        <div class="cb-card">
+            <div class="cb-label">Active Admissions</div>
+            <div class="cb-number purple">{{ active_admissions }}</div>
+            <div class="cb-muted">Patients currently admitted</div>
+        </div>
+
+    </div>
+
+    <!-- Bed capacity and quick actions -->
+    <div class="cb-panels">
+
+        <section class="cb-card">
+            <h3 class="cb-panel-title">Bed Capacity Used</h3>
+
+            <p class="cb-panel-subtitle">
+                Percentage of total beds currently occupied
+            </p>
+
+            <div class="cb-number blue">
+                <span id="overall-occupancy">{{ occupancy }}</span>%
+            </div>
+
+            <div
+                class="cb-progress"
+                role="progressbar"
+                aria-label="Overall bed occupancy"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="{{ occupancy }}">
+
+                <div
+                    id="overall-progress"
+                    class="cb-progress-fill"
+                    data-occupied="{{ occupied_beds }}"
+                    data-total="{{ total_beds }}">
+                </div>
+            </div>
+
+            <div class="cb-legend">
+                <span>Occupied beds</span>
+                <strong>{{ occupied_beds }}</strong>
+            </div>
+
+            <div class="cb-legend">
+                <span>Available beds</span>
+                <strong>{{ available_beds }}</strong>
+            </div>
+
+            <div class="cb-legend">
+                <span>Total beds</span>
+                <strong>{{ total_beds }}</strong>
+            </div>
+        </section>
+
+        <section class="cb-card">
+            <h3 class="cb-panel-title">Quick Actions</h3>
+
+            <p class="cb-panel-subtitle">
+                Access hospital management sections
+            </p>
+
+            <div class="cb-actions">
+
+                <a class="cb-action" href="{{ url_for('patients') }}">
+                    <span>
+                        <strong>Patients</strong>
+                        <small>Manage patient records</small>
+                    </span>
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <a class="cb-action" href="{{ url_for('beds') }}">
+                    <span>
+                        <strong>Manage Beds</strong>
+                        <small>Check bed availability</small>
+                    </span>
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <a class="cb-action" href="{{ url_for('admissions') }}">
+                    <span>
+                        <strong>Admissions</strong>
+                        <small>Manage admissions and discharges</small>
+                    </span>
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <a class="cb-action" href="{{ url_for('history') }}">
+                    <span>
+                        <strong>Allocation History</strong>
+                        <small>Review allocation records</small>
+                    </span>
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <a class="cb-action" href="{{ url_for('reports') }}">
+                    <span>
+                        <strong>Reports</strong>
+                        <small>View hospital reports</small>
+                    </span>
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Ward occupancy -->
+    <section class="cb-card" style="margin-bottom: 22px;">
+
+        <h3 class="cb-panel-title">Ward Occupancy</h3>
+
+        <p class="cb-panel-subtitle">
+            Bed usage across hospital wards
+        </p>
+
+        {% for w in ward_stats %}
+
+            {% set ward_percent =
+                ((w.occupied / w.total) * 100)
+                if w.total else 0
+            %}
+
+            <div class="cb-ward-row">
+
+                <div class="cb-ward-info">
+                    <strong>{{ w.ward or 'Unassigned Ward' }}</strong>
+
+                    <span>
+                        {{ w.occupied }} occupied / {{ w.total }} beds
+                    </span>
+                </div>
+
+                <div
+                    class="cb-progress"
+                    role="progressbar"
+                    aria-label="Ward occupancy"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="{{ ward_percent|round|int }}">
+
+                    <div
+                        class="cb-progress-fill fill-green"
+                        data-occupied="{{ w.occupied }}"
+                        data-total="{{ w.total }}">
+                    </div>
+                </div>
+
+                <div class="cb-ward-footer">
+                    {{ ward_percent|round|int }}% occupied
+                    · {{ w.available }} available
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <div class="cb-empty">
+                No ward data is available yet.
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+    <!-- Recent activity -->
+    <section class="cb-card">
+
+        <h3 class="cb-panel-title">Recent Allocation Activity</h3>
+
+        <p class="cb-panel-subtitle">
+            Latest bed allocation records
+        </p>
+
+        <div class="cb-table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Record ID</th>
+                        <th>Action</th>
+                        <th>Date and Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for log in recent_logs %}
+                    <tr>
+                        <td>{{ log.id }}</td>
+                        <td>{{ log.action }}</td>
+                        <td>
+                            {% if log.created_at %}
+                                {{ log.created_at.strftime('%d %b %Y, %H:%M') }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="cb-empty">
+                            No allocation activity recorded yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+(function () {
+    function setProgressBar(bar) {
+        const occupied = Number(bar.getAttribute("data-occupied"));
+        const total = Number(bar.getAttribute("data-total"));
+
+        let percentage = 0;
+
+        if (
+            Number.isFinite(occupied) &&
+            Number.isFinite(total) &&
+            total > 0
+        ) {
+            percentage = (occupied / total) * 100;
+        }
+
+        percentage = Math.max(0, Math.min(100, percentage));
+
+        bar.style.width = percentage + "%";
+
+        const container = bar.closest('[role="progressbar"]');
+
+        if (container) {
+            container.setAttribute(
+                "aria-valuenow",
+                String(Math.round(percentage))
+            );
+        }
+
+        return percentage;
+    }
+
+    function updateDashboardGraphs() {
+        const overallBar = document.getElementById("overall-progress");
+        const overallLabel = document.getElementById("overall-occupancy");
+
+        if (overallBar) {
+            const overallPercentage = setProgressBar(overallBar);
+
+            if (overallLabel) {
+                overallLabel.textContent = overallPercentage.toFixed(1);
+            }
+        }
+
+        document
+            .querySelectorAll(".cb-ward-row .cb-progress-fill")
+            .forEach(function (bar) {
+                setProgressBar(bar);
+            });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            updateDashboardGraphs
+        );
+    } else {
+        updateDashboardGraphs();
+    }
+})();
+</script>
+
+{% endblock %}
